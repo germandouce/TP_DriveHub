@@ -2,7 +2,7 @@
 
 Gestor de archivos de Drive y Gmail que permite entre otras, descargar, subir y mover archivos de Drive y recibir mails descargando sus adjuntos todo desde la terminal local del sistema.
 
-# Creditos
+## Creditos
 
 El trabajo fue realizado por un equipo de 5 personas: 4 estudiantes ( https://github.com/Adonisrq94, https://github.com/GianImpedovo, https://github.com/AntonellaRanelli y https://github.com/germandus ) y una tutora ( https://github.com/ ) que nos guió y ayudo a solucionar algunos pequeños problemas que fueron surgiendo. 
 
