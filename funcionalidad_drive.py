@@ -450,7 +450,7 @@ def subir_archivos(nombre_archivo:str, ruta_archivo: str, carpeta_id: str) -> No
                     'name': nombre_archivo,
                     'parents': [carpeta_id]
                 }
- 
+    print(ruta_archivo)
     media = MediaFileUpload(filename = ruta_archivo)
 
     service().files().create(body = file_metadata,
@@ -563,6 +563,9 @@ def menu_subir_archivos(ruta_archivo:str, nombre_archivo:str, carpeta_contenedor
         if eleccion == "1":
             subir_archivos(nombre_archivo, ruta_archivo, "root")
         elif eleccion == "2":
+            print()
+            print("carpeta contenedora a buscar: ",carpeta_contenedora)
+
             opciones_subir_archivos(nombre_archivo, ruta_archivo, carpeta_contenedora)
     else: #osea subo una carpeta        # OJO AGREGO permitir subirla a el root
         if eleccion == "1":                         #subi directamente
@@ -680,15 +683,15 @@ def descargar_archivo(archivo_id: str, ruta: str)->None:
         f.close()
 
 
-def sincronizar(archivos_drive: dict, archivos_local: dict, carpeta_local: dict, ruta: str)->None:
+def sincronizar(archivos_drive: dict, archivos_local: dict, carpeta_local: dict, ruta: str, c_id)->None:
     """
     PRE: Recibo los diccionarios con informacion del remoto y del local 
     POST: Sincronizo cada archivo segun su horario de modificacion
     """
 
     for archivo , fecha in archivos_local.items():
+        ruta_archivo = ruta + SEP + archivo
         if archivo in archivos_drive.keys():
-            ruta_archivo = ruta + SEP + archivo
             print(ruta_archivo)
             # comparo fechas 
             if fecha > archivos_drive[archivo][1]:
@@ -704,6 +707,8 @@ def sincronizar(archivos_drive: dict, archivos_local: dict, carpeta_local: dict,
                 # actualizo archivo al local
                 os.remove(ruta_archivo)
                 descargar_archivo(archivos_drive[archivo][0], ruta_archivo)
+        else:
+            subir_archivos(archivo, ruta_archivo,c_id )
 
     for carpeta , fecha in carpeta_local.items():
         if carpeta in archivos_drive.keys():
