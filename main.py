@@ -582,18 +582,31 @@ def main()-> None:
                 print("\n --- Suba el archivo recien creado a su drive ---  ")
                 print("Ingrese el nombre del archivo recien creado con la extension -> ej: texto.txt")
                 nombre_archivo = input("Archivo: ")
-                ruta_archivo = RUTA + SEP + nombre_archivo
+                
+                ruta_archivo = ruta_actual + SEP + nombre_archivo #con mi modif
+
+                #ruta_archivo = RUTA + SEP + nombre_archivo #antes
                 carpeta_contenedora = ruta_actual.split(SEP)[-1]
                 drive.opciones_subir_archivos(nombre_archivo, ruta_archivo, carpeta_contenedora)
 
         elif opcion[0] == "3":
 
             elegir = input("\n1 - Subir archivo\n2 - Subir carpeta\n -> ")
-            carpeta = RUTA.split(SEP)[-1]
+            
+            carpeta = ruta_actual.split(SEP)[-1]
+            
+            #carpeta = RUTA.split(SEP)[-1] #antes
+            
+            print(carpeta)
             if elegir == "1":
                 print(" ------ Navega por tu drive y subi el archivo a donde quieras !  ------ ")
                 nombre_archivo = input("Ingrese el nombre del archivo que quiera subir : ")
-                ruta_archivo = RUTA + SEP + nombre_archivo
+                
+                ruta_archivo = ruta_actual + SEP + nombre_archivo #new
+
+                #ruta_archivo = RUTA + SEP + nombre_archivo #antes
+                
+                print("\nruta del archivo seleccionado:", ruta_archivo,"\n")
                 try: 
                     
                     drive.menu_subir_archivos(ruta_archivo, nombre_archivo, carpeta, 'archivo')
@@ -622,7 +635,7 @@ def main()-> None:
                         archivos_remoto = drive.fecha_modificacion_remoto(c_id)
                         archivos_local = drive.fecha_modificacion_local(ruta_actual)[0]
                         carpeta_local = drive.fecha_modificacion_local(ruta_actual)[1]
-                        drive.sincronizar(archivos_remoto,archivos_local, carpeta_local, ruta_actual)
+                        drive.sincronizar(archivos_remoto,archivos_local, carpeta_local, ruta_actual, c_id)
             except :
                 print("\n ----- La carpeta no existe en el remoto ----- ")
 
